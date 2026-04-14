@@ -36,7 +36,7 @@ export default function LoginPage() {
           </div>
 
           <button 
-            formAction={login as any}
+            formAction={login}
             className="w-full bg-black text-white py-4 text-sm font-bold uppercase tracking-widest hover:bg-neutral-800 transition-colors mt-4"
           >
             Login
@@ -44,7 +44,7 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-8 text-center text-xs text-neutral-500">
-          Don't have an account yet? <Link href="/signup" className="font-bold text-black border-b border-black">Sign Up</Link>
+          Don&apos;t have an account yet? <Link href="/signup" className="font-bold text-black border-b border-black">Sign Up</Link>
         </p>
     </>
   );

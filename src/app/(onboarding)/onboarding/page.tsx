@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { completeOnboarding } from "@/app/actions/profile";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 
@@ -13,15 +13,13 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [interests, setInterests] = useState<string[]>([]);
-  const [timezone, setTimezone] = useState("UTC");
-
-  useEffect(() => {
+  const [timezone] = useState(() => {
     try {
-      setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    } catch (e) {
-      console.error("Timezone detection failed", e);
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch {
+      return "UTC";
     }
-  }, []);
+  });
 
   const toggleInterest = (interest: string) => {
     setInterests(prev => 
@@ -198,7 +196,7 @@ export default function OnboardingPage() {
                     className="mt-1 w-4 h-4 rounded-none border-neutral-300 text-black focus:ring-transparent accent-black"
                   />
                   <label htmlFor="meetups" className="text-xs text-neutral-500 leading-relaxed">
-                    I'm open to local meetups and physical prayer circles in my city.
+                    I&apos;m open to local meetups and physical prayer circles in my city.
                   </label>
                 </div>
               </div>

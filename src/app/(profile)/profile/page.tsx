@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { logout } from "@/app/actions/auth";
-import { LogOut, ArrowLeft } from "lucide-react";
+import { LogOut, ArrowLeft, Settings } from "lucide-react";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import Link from "next/link";
 
@@ -10,9 +10,9 @@ export default async function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
         <h1 className="text-2xl font-bold mb-4 uppercase tracking-tighter">Not authenticated</h1>
-        <Link href="/login" className="text-sm font-bold uppercase tracking-widest border-b border-black pb-1">Sign In</Link>
+        <Link href="/login" className="text-[10px] font-bold uppercase tracking-widest border-b border-black pb-1">Sign In</Link>
       </div>
     );
   }
@@ -26,31 +26,43 @@ export default async function ProfilePage() {
   if (!profile) return <div>Profile not found</div>;
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-6 py-12 md:py-24">
-      {/* Standalone Profile Header */}
-      <div className="flex justify-between items-center mb-24">
+    <div className="w-full max-w-6xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12 text-black">
+      
+      {/* Left Sidebar / Meta Nav */}
+      <div className="w-full lg:w-64 shrink-0 flex flex-col gap-8">
          <Link 
             href="/home" 
-            className="flex items-center text-[10px] font-bold uppercase tracking-widest text-neutral-400 hover:text-black transition-colors group"
+            className="flex items-center text-[10px] font-bold uppercase tracking-widest text-neutral-400 hover:text-black transition-colors group mb-4"
          >
-            <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" /> Back to Home
+            <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" /> Back to App
          </Link>
-         
-         <form action={logout}>
-            <button type="submit" className="flex items-center text-[10px] font-bold uppercase tracking-widest text-neutral-400 hover:text-black transition-colors">
-               <LogOut className="w-4 h-4 mr-2" /> Log out
+
+         <div className="flex flex-col gap-2">
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2 px-3">Settings</h3>
+            <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white border border-neutral-200 shadow-sm text-sm font-bold w-full text-left">
+               <Settings className="w-4 h-4" /> Account
             </button>
-         </form>
+         </div>
+
+         <div className="mt-auto pt-8 border-t border-neutral-200/50">
+            <form action={logout}>
+               <button type="submit" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+                  <LogOut className="w-4 h-4" /> Sign out
+               </button>
+            </form>
+         </div>
       </div>
 
-      <div className="mb-20">
-         <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-6 uppercase">Your Profile</h1>
-         <p className="text-neutral-500 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
-            Manage your community presence, update your story, and adjust your personal settings.
-         </p>
+      {/* Main Content Area */}
+      <div className="flex-1 max-w-3xl">
+         <div className="mb-10">
+            <h1 className="text-3xl font-bold tracking-tighter mb-2 uppercase">Account Settings</h1>
+            <p className="text-neutral-500 text-sm font-medium">Manage your personal information and preferences.</p>
+         </div>
+
+         <ProfileForm profile={profile} />
       </div>
 
-      <ProfileForm profile={profile} />
     </div>
   );
 }

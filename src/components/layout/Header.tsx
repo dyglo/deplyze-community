@@ -3,16 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import { usePathname } from "next/navigation";
 
-export function Header({ profile }: { profile?: any }) {
+
+interface Profile {
+  full_name?: string;
+  avatar_url?: string;
+  username?: string;
+}
+
+export function Header({ profile }: { profile?: Profile | null }) {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinks = [
-    { name: "Home", href: "/home" },
+    { name: "For You", href: "/home" },
     { name: "Wall of Prayer", href: "/wall-of-prayer" },
     { name: "Global Events", href: "/prayer-events" },
     { name: "Local Hub", href: "/local-community" },
@@ -56,7 +61,7 @@ export function Header({ profile }: { profile?: any }) {
       </header>
 
       {/* Slide-out Menu */}
-      <div className={`fixed inset-0 bg-white/95 backdrop-blur-2xl z-50 transition-transform duration-700 ease-in-out ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`fixed inset-0 bg-white/95 backdrop-blur-2xl z-50 transition-transform duration-700 ease-in-out overflow-y-auto overflow-x-hidden ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
         <button 
           onClick={() => setIsOpen(false)}
           className="absolute top-8 right-8 md:top-12 md:right-12 p-2 hover:opacity-50 transition-opacity z-[60]"
@@ -78,7 +83,7 @@ export function Header({ profile }: { profile?: any }) {
               ))}
            </nav>
 
-           <div className="mt-24 pt-12 border-t border-neutral-100 flex flex-col md:flex-row justify-between gap-12">
+           <div className="mt-24 pt-12 border-t border-neutral-100 flex flex-col md:flex-row justify-between gap-12 pb-12">
               <div className="flex flex-col space-y-4">
                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Account</h4>
                  <div className="flex flex-col space-y-2">

@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+
 import { createClient } from "@/lib/supabase/server";
 
 export default async function AppLayout({
@@ -24,7 +24,6 @@ export default async function AppLayout({
     <>
       <Header profile={profile} />
       {children}
-      <Footer />
     </>
   );
 }

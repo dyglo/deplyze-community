@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { moderatePost, moderatePrayerRequest } from "@/app/actions/admin";
+import { moderatePost } from "@/app/actions/admin";
 import { redirect } from "next/navigation";
 
 export default async function AdminDashboardPage() {
@@ -16,19 +16,29 @@ export default async function AdminDashboardPage() {
     return <div className="p-24 text-center">Unauthorized. You must be an admin.</div>;
   }
 
+  interface Post {
+    id: string;
+    content: string;
+    type: string;
+    status: string;
+    profiles: { username: string } | null;
+  }
+
   // Fetch flagged posts
-  const { data: flaggedPosts } = await supabase
+  const { data: flaggedData } = await supabase
     .from('posts')
     .select('id, content, type, status, profiles(username)')
-    .eq('status', 'flagged') as any;
+    .eq('status', 'flagged');
+  const flaggedPosts = flaggedData as Post[] | null;
 
   // Fetch all other posts for general moderation
-  const { data: recentPosts } = await supabase
+  const { data: recentData } = await supabase
     .from('posts')
     .select('id, content, type, status, profiles(username)')
     .neq('status', 'flagged')
     .order('created_at', { ascending: false })
-    .limit(20) as any;
+    .limit(20);
+  const recentPosts = recentData as Post[] | null;
 
   return (
     <div className="w-full max-w-5xl mx-auto px-6 py-12 md:py-24">
@@ -41,10 +51,10 @@ export default async function AdminDashboardPage() {
            <p className="text-sm text-neutral-400">No flagged posts.</p>
         ) : (
            <div className="space-y-6">
-              {flaggedPosts?.map((post: any) => (
+              {flaggedPosts?.map((post) => (
                  <div key={post.id} className="p-6 border border-red-200 bg-red-50/50 flex flex-col gap-4">
                     <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-neutral-500">
-                       <span>{(post.profiles as any)?.username || 'Anonymous'}</span>
+                       <span>{post.profiles?.username || 'Anonymous'}</span>
                        <span className="text-red-500">Flagged</span>
                     </div>
                     <p className="text-sm">{post.content}</p>
@@ -65,10 +75,10 @@ export default async function AdminDashboardPage() {
       <section>
         <h2 className="text-sm font-bold uppercase tracking-widest mb-6 border-b border-border pb-4">Recent Posts</h2>
         <div className="space-y-6">
-            {recentPosts?.map((post: any) => (
+            {recentPosts?.map((post) => (
                <div key={post.id} className="p-6 border border-neutral-100 flex flex-col gap-4 group">
                   <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-neutral-500">
-                     <span>{(post.profiles as any)?.username || 'Anonymous'}</span>
+                     <span>{post.profiles?.username || 'Anonymous'}</span>
                      <span>{post.status}</span>
                   </div>
                   <p className="text-sm text-neutral-800">{post.content}</p>

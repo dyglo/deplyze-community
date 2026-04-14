@@ -61,7 +61,7 @@ export default function Home() {
           </div>
           <div className="w-full md:w-2/3">
             <h3 className="text-3xl md:text-5xl lg:text-6xl font-normal leading-[1.1] tracking-tight text-neutral-400">
-              Meaningful dialogues that <span className="text-black font-medium">ignite ideas</span>, <span className="text-black font-medium">deepen connection</span>, and <span className="text-black font-medium">welcome every prayer</span> &mdash; whether you're here for deep talks or light moments, you belong here.
+              Meaningful dialogues that <span className="text-black font-medium">ignite ideas</span>, <span className="text-black font-medium">deepen connection</span>, and <span className="text-black font-medium">welcome every prayer</span> &mdash; whether you&apos;re here for deep talks or light moments, you belong here.
             </h3>
           </div>
         </div>
@@ -69,8 +69,8 @@ export default function Home() {
 
       {/* Global Connection Section */}
       <section className="w-full max-w-[1500px] mx-auto px-6 md:px-12">
-         <h2 className="text-sm font-bold uppercase tracking-widest mb-6">
-            YOU'RE NOT PRAYING ALONE
+          <h2 className="text-sm font-bold uppercase tracking-widest mb-6">
+            YOU&apos;RE NOT PRAYING ALONE
          </h2>
          <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-12">
             <h3 className="text-3xl md:text-5xl font-normal leading-tight tracking-tight text-neutral-400 max-w-2xl">

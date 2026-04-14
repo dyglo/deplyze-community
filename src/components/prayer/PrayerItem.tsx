@@ -5,7 +5,20 @@ import { ChevronUp } from "lucide-react";
 import { togglePrayerVote } from "@/app/actions/prayer";
 import { formatDistanceToNow } from "date-fns";
 
-export function PrayerItem({ request, userVoted }: { request: any, userVoted: boolean }) {
+interface PrayerRequest {
+  id: string;
+  title: string;
+  description?: string;
+  category: string;
+  votes_count: number;
+  created_at: string;
+  profiles?: {
+    full_name?: string;
+    username?: string;
+  };
+}
+
+export function PrayerItem({ request, userVoted }: { request: PrayerRequest, userVoted: boolean }) {
   const [isPending, setIsPending] = useState(false);
   const authorName = request.profiles?.full_name || request.profiles?.username || "Anonymous";
 

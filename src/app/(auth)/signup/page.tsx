@@ -49,7 +49,7 @@ export default function SignupPage() {
           </div>
 
           <button 
-            formAction={signup as any}
+            formAction={signup}
             className="w-full bg-black text-white py-4 text-sm font-bold uppercase tracking-widest hover:bg-neutral-800 transition-colors mt-8"
           >
             Create Account

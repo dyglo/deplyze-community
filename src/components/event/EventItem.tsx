@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import { format, differenceInSeconds, isValid } from "date-fns";
 import { toggleEventRsvp } from "@/app/actions/event";
 
-export function EventItem({ event, userIsRsvpd }: { event: any, userIsRsvpd: boolean }) {
+interface Event {
+  id: string;
+  title: string;
+  description?: string;
+  datetime: string;
+}
+
+export function EventItem({ event, userIsRsvpd }: { event: Event, userIsRsvpd: boolean }) {
   const [isPending, setIsPending] = useState(false);
   const [timeLeft, setTimeLeft] = useState<{ d: number, h: number, m: number, s: number } | null>(null);
 

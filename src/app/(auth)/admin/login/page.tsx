@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
         </div>
 
         <button 
-          formAction={login as any}
+          formAction={login}
           className="w-full bg-slate-900 text-white py-4 text-sm font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors mt-6"
         >
           Login to Dashboard

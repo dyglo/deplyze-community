@@ -10,7 +10,22 @@ export async function updateProfile(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: "Not authenticated" }
 
-  const profileData: any = {
+  interface ProfileUpdate {
+    full_name?: string;
+    username?: string;
+    country?: string;
+    city?: string;
+    timezone?: string;
+    language?: string;
+    bio?: string;
+    open_to_local_meetups?: boolean;
+    updated_at: string;
+    onboarding_completed?: boolean;
+    avatar_url?: string;
+    prayer_interests?: string[];
+  }
+
+  const profileData: ProfileUpdate = {
     full_name: formData.get('full_name') as string,
     username: formData.get('username') as string,
     country: formData.get('country') as string,

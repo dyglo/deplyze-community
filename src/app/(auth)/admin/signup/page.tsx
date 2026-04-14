@@ -47,7 +47,7 @@ export default function AdminSignupPage() {
         </div>
 
         <button 
-          formAction={adminSignup as any}
+          formAction={adminSignup}
           className="w-full bg-slate-900 text-white py-4 text-sm font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors mt-6"
         >
           Create Admin Account
